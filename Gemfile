@@ -38,6 +38,9 @@ gem 'dalli'
 
 gem 'aes'
 
+gem 'sass-rails', '~> 5.0'
+gem 'haml-rails'
+
 gem 'momentjs-rails'
 
 gem 'materialize-sass'
