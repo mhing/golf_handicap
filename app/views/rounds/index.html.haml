@@ -1,0 +1,24 @@
+.container
+  .row
+    .col.s10
+      %h3 All Rounds
+    .col.s2
+      =link_to "Add Round", new_round_path, class: "btn"
+
+  .row
+    .col.s2
+      %p Date Played
+
+    .col.s2
+      %p Score
+
+    .col.s2
+      %p Rating
+
+    .col.s2
+      %p Slope
+
+    .col.s4
+      %p Course
+
+  =render partial: "round", collection: @rounds

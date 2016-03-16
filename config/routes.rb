@@ -1,39 +1,13 @@
 Rails.application.routes.draw do
-  get 'landing/index'
-
-  get 'round/new'
-
-  get 'round/create'
-
-  get 'round/edit'
-
-  get 'round/update'
-
-  get 'round/destroy'
-
-  get 'round/index'
-
-  get 'round/show'
-
-  get 'course/new'
-
-  get 'course/create'
-
-  get 'course/edit'
-
-  get 'course/update'
-
-  get 'course/destroy'
-
-  get 'course/index'
-
-  get 'course/show'
+  resources :courses
+  resources :rounds
+  resources :holes
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'course#index'
+  root 'landing#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
