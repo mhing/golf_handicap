@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'landing/index'
+
   get 'round/new'
 
   get 'round/create'
