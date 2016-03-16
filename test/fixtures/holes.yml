@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  par: 
+  handicap: 
+  yardage: 
+  fir: false
+  gir: false
+  score: 
+  putts: 
+  penalties: 
+  sand_shots: 
+  round_id: 
+
+two:
+  par: 
+  handicap: 
+  yardage: 
+  fir: false
+  gir: false
+  score: 
+  putts: 
+  penalties: 
+  sand_shots: 
+  round_id: 
