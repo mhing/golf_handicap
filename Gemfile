@@ -38,6 +38,9 @@ gem 'dalli'
 
 gem 'aes'
 
+gem 'sass-rails', '~> 5.0'
+gem 'haml-rails'
+
 gem 'momentjs-rails'
 
 gem 'materialize-sass'
@@ -75,7 +78,6 @@ group :development, :test do
   gem 'awesome_print'
   gem 'rspec-rails', '~> 3.0'
   gem 'factory_girl_rails'
-  gem 'thin'
 
   gem 'rubocop'
   gem 'scss_lint', require: false

@@ -11,6 +11,14 @@
 // about supported directives.
 //
 //= require jquery
+
 //= require jquery_ujs
 //= require turbolinks
+//= require underscore
+//= require underscore.string
+//= require autonumeric
+//= require backbone
+//= require materialize-sprockets
+//= require init
+//= require app_datepicker
 //= require_tree .

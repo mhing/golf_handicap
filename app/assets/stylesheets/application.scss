@@ -9,7 +9,15 @@
  * compiled file so the styles you add here take precedence over styles defined in any styles
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
- *
- *= require_tree .
- *= require_self
  */
+
+/*
+ * materialize is the css framework we are using, any additions to the
+ * default behavior should go in the materialize/ directory with the same
+ * file name as the component you are changing.
+ */
+@import "materialize";
+
+@import "rounds";
+@import "courses";
+@import "landing";
