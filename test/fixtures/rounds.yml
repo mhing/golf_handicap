@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date_played: 2016-03-15
+  score: 
+  rating: 
+  slope: 
+  course_id: 
+
+two:
+  date_played: 2016-03-15
+  score: 
+  rating: 
+  slope: 
+  course_id: 
