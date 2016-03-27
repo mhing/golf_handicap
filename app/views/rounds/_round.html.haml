@@ -1,15 +1,19 @@
-.row
-  .col.s2
-    %p=round.date_played
-
-  .col.s2
-    %p=round.score
-
-  .col.s2
-    %p=round.rating
-
-  .col.s2
-    %p=round.slope
-
-  .col.s4
-    =course_display(round)
+%tr
+  -Course.statistics.each do |stat|
+    %td
+      %span=round.send(stat)
+  %td
+    %span=round.course.name
+  %td
+    %span=round.course.location
+  %td
+    =link_to "Edit Round", edit_round_path(round)
+    %span=" | "
+    -if round.holes.present?
+      -link_label = "Edit Holes"
+    -else
+      -link_label = "Add Holes To Scorecard"
+    =link_to link_label, add_holes_round_path(round)
+    %span=" | "
+    -if round.holes.present?
+      =link_to "Add Hole Stats", add_hole_stats_round_path(round)

@@ -1,0 +1,13 @@
+.row
+  .col.s12
+    %h4 Hole Breakdown Statistics
+.row
+  .col.s12
+    %table
+      %thead
+        -@hole_breakdown_statistics.each do |stat|
+          %th
+            -if stat.include?('fir') || stat.include?('gir')
+              %span=display_regulation_stat(stat)
+            -else
+              %span=stat.humanize.titleize

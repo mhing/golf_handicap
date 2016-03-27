@@ -1,0 +1,11 @@
+%thead
+  %tr
+    -Course.statistics.each do |stat|
+      %th
+        %span=stat.humanize.titleize
+    %th
+      %span Course
+    %th
+      %span Location
+    %th
+      %span Actions

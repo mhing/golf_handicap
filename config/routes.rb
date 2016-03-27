@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   resources :courses
-  resources :rounds
+  resources :rounds do
+    member do
+      get :add_holes
+      get :add_hole_stats
+    end
+  end
   resources :holes
 
   # The priority is based upon order of creation: first created -> highest priority.

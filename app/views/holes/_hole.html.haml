@@ -1,0 +1,8 @@
+%tr
+  %td
+    %span=hole.position
+  -hole.round.scorecard_metrics.each do |metric|
+    %td
+      %span=display_metric(hole, metric)
+  %td
+    =link_to "Edit Hole", edit_hole_path(hole)

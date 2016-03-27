@@ -1,2 +1,16 @@
-%h1 Landing#index
-%p Find me in app/views/landing/index.html.haml
+.container
+  =render "overall_stats_table"
+  =render "per_round_stats_table"
+  =render "hole_breakdown_table"
+
+  .row
+    .col.s12
+      %h4 Recent Rounds
+  .row
+    .col.s12
+      %table.striped.centered
+        =render 'rounds/round_header'
+        %tbody
+          =render @recent_rounds
+
+

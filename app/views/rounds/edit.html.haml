@@ -1,2 +1,6 @@
-%h1 Rounds#edit
-%p Find me in app/views/rounds/edit.html.haml
+.container
+  .row
+    .col.s12
+      %h4 Edit Round At #{@course.name} From #{@round.date_played}
+
+  =render partial: 'form', object: @round, as: :round

@@ -1,0 +1,7 @@
+%thead
+  %tr
+    -Course.details.each do |detail|
+      %th
+        %span=detail.humanize.titleize
+    %th
+      %span Actions

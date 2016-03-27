@@ -1,0 +1,17 @@
+.row
+  .col.s12
+    %h4 Per Round Statistics
+.row
+  .col.s12
+    %table
+      %thead
+        %tr
+          -@per_round_statistics.each do |stat|
+            %th
+              -if stat.include?('fir') || stat.include?('gir')
+                %span=display_regulation_stat(stat)
+              -else
+                %span=stat.humanize.titleize
+      %tbody
+        -@per_round_summary.each do |round_stats|
+          %th

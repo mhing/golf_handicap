@@ -4,4 +4,12 @@ class Course < ActiveRecord::Base
   def location
     "#{city}, #{state}"
   end
+
+  def self.details
+    %w(name city state)
+  end
+
+  def self.statistics
+    %w(date_played tee_box rating slope score)
+  end
 end

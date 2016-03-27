@@ -1,2 +1,13 @@
-%h1 Courses#index
-%p Find me in app/views/courses/index.html.haml
+.container
+  .row
+    .col.s12
+      %h3 All Courses
+  .row
+    .col.s12
+      =link_to "Add Course", new_course_path, class: "btn"
+  .row
+    .col.s12
+      %table.striped.centered
+        =render 'course_header'
+        %tbody
+          =render @courses

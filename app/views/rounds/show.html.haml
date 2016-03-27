@@ -1,1 +1,30 @@
-
+.container
+  .row
+    .col.s12
+      %h4 Round
+  .row
+    .col.s12
+      %table.striped.centered
+        =render 'round_header'
+        %tbody
+          =render @round
+  .row
+    .col.s12
+      %h4 Scorecard
+  .row
+    .col.s12
+      %table.striped.centered
+        %thead
+          %tr
+            %th
+              %span Hole
+            -@round.scorecard_metrics.each do |metric|
+              %th
+                -if %w(fir gir).include? metric
+                  %span=metric.humanize.upcase
+                -else
+                  %span=metric.humanize.titleize
+            %th
+              %span Actions
+        %tbody
+          =render @round.holes

@@ -1,0 +1,24 @@
+.container
+  .row
+    .col.s12
+      %h3=@round.course.name
+      %span="Date Played: #{@round.date_played}"
+
+  =form_for @round do |f|
+    .row
+      .col.s12
+        %table
+          =f.fields_for :holes do |holes_field|
+            -hole = holes_field.object
+            %tr
+              %td
+                %span=hole.position
+                =holes_field.hidden_field :position, value: hole.position
+              -@round.course_metrics.each do |metric|
+                %td
+                  .input-field
+                    =holes_field.number_field metric.to_sym
+                    =holes_field.label metric.to_sym, class:"#{hole.send(metric).nil? ? '' : 'active'}"
+    .row
+      .col.s12
+        =submit_tag "Save Holes", class: 'btn'

@@ -1,0 +1,9 @@
+%tr
+  -Course.details.each do |detail|
+    %td
+      %span=course.send(detail)
+  %td
+    =link_to "Add Round", new_round_path(course: course)
+    %span=" | "
+    -if course.rounds.present?
+      =link_to "Edit Rounds", "#"
