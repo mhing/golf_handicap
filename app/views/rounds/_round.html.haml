@@ -11,12 +11,17 @@
     %span=round.course.location
   %td
     =link_to "Edit Round", edit_round_path(round)
-    %span=" | "
-    -if round.holes.present?
-      -link_label = "Edit Holes"
-    -else
-      -link_label = "Add Holes To Scorecard"
-    =link_to link_label, add_holes_round_path(round)
-    -if round.holes.present?
+    -if round.tee_box.holes.present?
       %span=" | "
-      =link_to "Add Hole Stats", add_hole_stats_round_path(round)
+      -if round.hole_statistics.present?
+        -link_label = "Edit Hole Stats"
+      -else
+        -link_label = "Add Hole Stats To Scorecard"
+      =link_to link_label, add_hole_statistics_round_path(round)
+
+    -else
+      %span=" | "
+      =link_to "Add Holes To Tee Box", add_holes_round_path(round)
+
+    %span=" | "
+    =link_to "Delete", round, method: :delete, data:{confirm: "Are you sure?"}

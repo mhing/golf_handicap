@@ -1,0 +1,6 @@
+%tr
+  %td
+    %span=hole_statistic.hole.position
+  -hole_statistic.round.scorecard_metrics.each do |metric|
+    %td
+      %span=display_metric(hole_statistic, metric)

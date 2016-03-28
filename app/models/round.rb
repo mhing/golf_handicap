@@ -16,8 +16,8 @@ class Round < ActiveRecord::Base
   end
 
   def scoring_metrics
-    %w(score putts fir gir
-       sand_shots penalties)
+    %w(score putts sand_shots
+       penalties fir gir)
   end
 
   def length

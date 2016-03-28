@@ -3,10 +3,12 @@ Rails.application.routes.draw do
   resources :rounds do
     member do
       get :add_holes
-      get :add_hole_stats
+      get :add_hole_statistics
     end
   end
   resources :holes
+  resources :hole_statistics
+  resources :tee_boxes
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

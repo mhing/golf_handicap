@@ -4,17 +4,17 @@
       %h3=@round.course.name
       %span="Date Played: #{@round.date_played}"
 
-  =form_for @round do |f|
+  =form_for @tee_box do |f|
     .row
       .col.s12
-        %table
+        %table.highlight
           =f.fields_for :holes do |holes_field|
             -hole = holes_field.object
             %tr
               %td
                 %span=hole.position
                 =holes_field.hidden_field :position, value: hole.position
-              -@round.course_metrics.each do |metric|
+              -@tee_box.hole_metrics.each do |metric|
                 %td
                   .input-field
                     =holes_field.number_field metric.to_sym

@@ -24,7 +24,5 @@
                   %span=metric.humanize.upcase
                 -else
                   %span=metric.humanize.titleize
-            %th
-              %span Actions
         %tbody
-          =render @round.holes
+          =render @round.hole_statistics

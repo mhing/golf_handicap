@@ -7,3 +7,12 @@
     %span=" | "
     -if course.rounds.present?
       =link_to "Edit Rounds", "#"
+%tr
+  %td
+    %span Tee Boxes
+  %td{colspan: 3}
+    %table.striped.centered
+      //=render 'tee_boxes/tee_boxes_header'
+      %tbody
+        =render course.tee_boxes
+

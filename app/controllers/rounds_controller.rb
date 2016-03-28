@@ -22,6 +22,8 @@ class RoundsController < ApplicationController
 
   def create
     @round = Round.create round_details_params
+    @round.tee_box.course = @round.course
+    @round.tee_box.save!
     redirect_to rounds_path
   end
 
@@ -33,7 +35,7 @@ class RoundsController < ApplicationController
   end
 
   def update
-    round = Round.find(round_holes_params[:id])
+    round = Round.find round_holes_params[:id]
     round.attributes = round_holes_params[:round]
     round.save!
 
@@ -41,10 +43,13 @@ class RoundsController < ApplicationController
   end
 
   def destroy
+    round = Round.find round_params
+    round.destroy
+    redirect_to rounds_path
   end
 
   def index
-    @rounds = Round.all
+    @rounds = Round.order(date_played: :desc)
     @existing_courses = Course.all
     @existing_tee_boxes = {}
     @existing_courses.each{|c| @existing_tee_boxes[c.id] = c.tee_boxes.select(:id, :name)}
@@ -52,20 +57,28 @@ class RoundsController < ApplicationController
 
   def show
     @round = Round.find round_params
+    @tee_box = @round.tee_box
   end
 
   def add_holes
     @round = Round.find round_params
-    unless @round.holes.present?
+    @tee_box = @round.tee_box
+    unless @tee_box.holes.present?
       Round::HOLES.times do |position|
-        @round.holes.build(position: position + 1)
+        @tee_box.holes.build(position: position + 1)
       end
     end
   end
 
-  def add_hole_stats
+  def add_hole_statistics
     @round = Round.find round_params
-    redirect_to action: "add_holes" unless @round.holes.present?
+    @tee_box = @round.tee_box
+    unless @round.hole_statistics.present?
+      Round::HOLES.times do |position|
+        @round.hole_statistics.build(position: position + 1)
+      end
+    end
+    redirect_to action: "add_holes" unless @tee_box.holes.present?
   end
 
   private
@@ -81,7 +94,10 @@ class RoundsController < ApplicationController
   end
 
   def round_holes_params
-    params.permit(:id, round: [:tee_box, :date_played, :score, :rating, :slope, holes_attributes: [:id, :position, :yardage, :par, :handicap, :score, :putts, :fir, :gir, :sand_shots, :penalties]])
+    params.permit(:id, round: [:tee_box, :date_played, :score, :rating, :slope,
+                               hole_statistics_attributes: [:id, :position, :score, :putts,
+                                                            :fir, :gir, :sand_shots,
+                                                            :hole_id, :penalties]])
   end
 
   def new_round_params

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160328001100) do
+ActiveRecord::Schema.define(version: 20160328003006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,16 +25,17 @@ ActiveRecord::Schema.define(version: 20160328001100) do
   end
 
   create_table "hole_statistics", force: :cascade do |t|
-    t.boolean  "fir"
-    t.boolean  "gir"
-    t.integer  "penalties"
+    t.boolean  "fir",        default: false
+    t.boolean  "gir",        default: false
+    t.integer  "penalties",  default: 0
     t.integer  "putts"
-    t.integer  "sand_shots"
+    t.integer  "sand_shots", default: 0
     t.integer  "score"
     t.integer  "hole_id"
     t.integer  "round_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "position"
   end
 
   add_index "hole_statistics", ["hole_id"], name: "index_hole_statistics_on_hole_id", using: :btree

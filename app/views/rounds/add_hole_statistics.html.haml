@@ -1,0 +1,31 @@
+.container
+  .row
+    .col.s12
+      %h3=@round.course.name
+      %span="Date Played: #{@round.date_played}"
+
+  =form_for @round do |f|
+    .row
+      .col.s12
+        %table.highlight
+          =f.fields_for :hole_statistics do |hole_statistics_field|
+            -hole_stat = hole_statistics_field.object
+            -hole = @tee_box.holes.find_by(position: hole_stat.position)
+            =hole_statistics_field.hidden_field :hole_id, value: hole.id
+            %tr
+              %td
+                %span=hole.position
+              -@round.scoring_metrics.each do |metric|
+                %td
+                  -if %w(fir gir).include? metric
+                    =hole_statistics_field.check_box metric.to_sym, {}, "true", "false"
+                    =hole_statistics_field.label metric.to_sym, metric.upcase, class:"#{hole_stat.send(metric).nil? ? '' : 'active'}"
+                  -else
+                    .input-field
+                      =hole_statistics_field.number_field metric.to_sym
+                      =hole_statistics_field.label metric.to_sym, class:"#{hole_stat.send(metric).nil? ? '' : 'active'}"
+
+    .row
+      .col.s12
+        =submit_tag "Save Hole Stats", class: 'btn'
+        =link_to "Cancel", :back
