@@ -1,8 +1,9 @@
 class Round < ActiveRecord::Base
   belongs_to :course
-  has_many :holes, -> { order(position: :asc) }, dependent: :destroy
+  belongs_to :tee_box
+  has_many :hole_statistics
 
-  accepts_nested_attributes_for :course, :holes
+  accepts_nested_attributes_for :course, :holes, :tee_box
 
   HOLES = 18
 

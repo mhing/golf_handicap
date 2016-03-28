@@ -1,13 +1,23 @@
 class RoundsController < ApplicationController
   def new
     @round = Round.new
-    if new_round_params[:course]
-      @course = Course.find new_round_params[:course]
+
+    if new_round_params[:round][:course_id].present?
+      @existing_courses = Course.all
+      @course = Course.find new_round_params[:round][:course_id]
+      @existing_tee_boxes = @course.tee_boxes
     else
-      @course ||= Course.new
+      @course = Course.new
     end
+
+    if new_round_params[:round][:tee_box_id].present?
+      @tee_box = @course.tee_boxes.find(new_round_params[:round][:tee_box_id])
+    else
+      @tee_box = @course.tee_boxes.new
+    end
+
     @round.course = @course
-    @existing_courses = Course.all
+    @round.tee_box = @tee_box
   end
 
   def create
@@ -18,6 +28,7 @@ class RoundsController < ApplicationController
   def edit
     @round = Round.find round_params
     @course = @round.course
+    @tee_box = @round.tee_box
     @existing_courses = Course.all
   end
 
@@ -34,6 +45,9 @@ class RoundsController < ApplicationController
 
   def index
     @rounds = Round.all
+    @existing_courses = Course.all
+    @existing_tee_boxes = {}
+    @existing_courses.each{|c| @existing_tee_boxes[c.id] = c.tee_boxes.select(:id, :name)}
   end
 
   def show
@@ -61,9 +75,9 @@ class RoundsController < ApplicationController
   end
 
   def round_details_params
-    params.require(:round).permit(:date_played, :score, :rating,
-                                  :slope, :course_id, :tee_box,
-                                  course_attributes: [:city, :name, :state])
+    params.require(:round).permit(:date_played, :score, :course_id, :tee_box_id,
+                                  course_attributes: [:city, :name, :state],
+                                  tee_box_attributes: [:name, :rating, :slope])
   end
 
   def round_holes_params
@@ -71,6 +85,6 @@ class RoundsController < ApplicationController
   end
 
   def new_round_params
-    params.permit(:course)
+    params.permit(round: [:course_id, :tee_box_id])
   end
 end

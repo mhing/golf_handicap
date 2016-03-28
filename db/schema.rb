@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160317034312) do
+ActiveRecord::Schema.define(version: 20160328000825) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,35 +24,47 @@ ActiveRecord::Schema.define(version: 20160317034312) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "hole_statistics", force: :cascade do |t|
+    t.boolean  "fir"
+    t.boolean  "gir"
+    t.integer  "penalties"
+    t.integer  "putts"
+    t.integer  "sand_shots"
+    t.integer  "score"
+    t.integer  "hole_id"
+    t.integer  "round_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "holes", force: :cascade do |t|
     t.integer  "par"
     t.integer  "handicap"
     t.integer  "yardage"
-    t.boolean  "fir"
-    t.boolean  "gir"
-    t.integer  "score"
-    t.integer  "putts"
-    t.integer  "penalties"
-    t.integer  "sand_shots"
-    t.integer  "round_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "position"
+    t.integer  "tee_box_id"
   end
-
-  add_index "holes", ["round_id"], name: "index_holes_on_round_id", using: :btree
 
   create_table "rounds", force: :cascade do |t|
     t.date     "date_played"
     t.integer  "score"
-    t.decimal  "rating"
-    t.integer  "slope"
     t.integer  "course_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.string   "tee_box"
+    t.integer  "tee_box_id"
   end
 
   add_index "rounds", ["course_id"], name: "index_rounds_on_course_id", using: :btree
+
+  create_table "tee_boxes", force: :cascade do |t|
+    t.decimal  "rating"
+    t.integer  "slope"
+    t.string   "name"
+    t.integer  "course_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
 end

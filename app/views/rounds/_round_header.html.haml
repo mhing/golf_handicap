@@ -2,7 +2,10 @@
   %tr
     -Course.statistics.each do |stat|
       %th
-        %span=stat.humanize.titleize
+        -if stat == 'name'
+          %span Tee Box
+        -else
+          %span=stat.humanize.titleize
     %th
       %span Course
     %th

@@ -8,9 +8,10 @@
 
         .row
           .col.s12
+            =f.hidden_field :course_id, value: @course.id
             =collection_select(:round, :course_id, @existing_courses, :id, :name, {prompt: "Select Existing Course..."}, {class: "browser-default", disabled: @course.persisted?})
 
-    -if @course.new_record?
+    -else @course.new_record?
       .col.s6
         .row
           .col.s12
@@ -32,18 +33,30 @@
               =course_field.label :state
 
   .row
-    .input-field.col.s3
-      =f.text_field :tee_box, min: 67, max: 77, step: 0.1, required: true
-      =f.label :tee_box, "Tee Box", class:"#{round.tee_box.nil? ? '' : 'active'}"
+    =f.hidden_field :tee_box_id, value: @tee_box.id
+    -if @tee_box.persisted?
+      .col.s4
+        %p="Tee Box: #{@tee_box.name}"
+      .col.s4
+        %p="Rating: #{@tee_box.rating}"
+      .col.s4
+        %p="Slope: #{@tee_box.slope}"
 
-    .input-field.col.s3
-      =f.number_field :rating, min: 67, max: 77, step: 0.1, required: true
-      =f.label :rating, "Course Rating", class:"#{round.rating.nil? ? '' : 'active'}"
+    -else
+      =f.fields_for :tee_box do |tee_box_fields|
+        .input-field.col.s3
+          =tee_box_fields.text_field :name, required: true
+          =tee_box_fields.label :name, "Tee Box", class:"#{round.tee_box.name.nil? ? '' : 'active'}"
 
-    .input-field.col.s3
-      =f.number_field :slope, min: 55, max: 155, step: 1, required: true
-      =f.label :slope, "Course Slope", class:"#{round.slope.nil? ? '' : 'active'}"
+        .input-field.col.s3
+          =tee_box_fields.number_field :rating, min: 67, max: 77, step: 0.1, required: true
+          =tee_box_fields.label :rating, "Course Rating", class:"#{round.tee_box.rating.nil? ? '' : 'active'}"
 
+        .input-field.col.s3
+          =tee_box_fields.number_field :slope, min: 55, max: 155, step: 1, required: true
+          =tee_box_fields.label :slope, "Course Slope", class:"#{round.tee_box.slope.nil? ? '' : 'active'}"
+
+  .row
     .input-field.col.s3
       =f.number_field :score, min: 50, max: 150, step: 1, required: true
       =f.label :score, "Score", class:"#{round.score.nil? ? '' : 'active'}"

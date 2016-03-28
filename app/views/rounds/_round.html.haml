@@ -1,7 +1,10 @@
 %tr
   -Course.statistics.each do |stat|
     %td
-      %span=round.send(stat)
+      -if TeeBox.statistics.include? stat
+        %span=round.tee_box.send(stat)
+      -else
+        %span=round.send(stat)
   %td
     %span=round.course.name
   %td
@@ -14,6 +17,6 @@
     -else
       -link_label = "Add Holes To Scorecard"
     =link_to link_label, add_holes_round_path(round)
-    %span=" | "
     -if round.holes.present?
+      %span=" | "
       =link_to "Add Hole Stats", add_hole_stats_round_path(round)

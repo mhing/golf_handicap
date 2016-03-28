@@ -2,9 +2,14 @@
   .row
     .col.s12
       %h3 All Rounds
-  .row
-    .col.s12
-      =link_to "Add Round", new_round_path, class: "btn"
+  =form_tag new_round_path, method: :get do
+    .row
+      .col.s3
+        =collection_select(:round, :course_id, @existing_courses, :id, :name, {prompt: "New Course"}, {class: "browser-default"})
+      .col.s3
+        %select.browser-default{name: 'round[tee_box_id]', data: {behavior: 'teeBoxSelect', values: @existing_tee_boxes.to_json, course_elm_id: 'round_course_id'}})
+      .col.s4
+        =submit_tag "Add Round", class: "btn"
   .row
     .col.s12
       %table.striped.centered
