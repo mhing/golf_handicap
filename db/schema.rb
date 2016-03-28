@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160328000825) do
+ActiveRecord::Schema.define(version: 20160328001100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,9 @@ ActiveRecord::Schema.define(version: 20160328000825) do
     t.datetime "updated_at", null: false
   end
 
+  add_index "hole_statistics", ["hole_id"], name: "index_hole_statistics_on_hole_id", using: :btree
+  add_index "hole_statistics", ["round_id"], name: "index_hole_statistics_on_round_id", using: :btree
+
   create_table "holes", force: :cascade do |t|
     t.integer  "par"
     t.integer  "handicap"
@@ -46,6 +49,8 @@ ActiveRecord::Schema.define(version: 20160328000825) do
     t.integer  "position"
     t.integer  "tee_box_id"
   end
+
+  add_index "holes", ["tee_box_id"], name: "index_holes_on_tee_box_id", using: :btree
 
   create_table "rounds", force: :cascade do |t|
     t.date     "date_played"
@@ -57,6 +62,7 @@ ActiveRecord::Schema.define(version: 20160328000825) do
   end
 
   add_index "rounds", ["course_id"], name: "index_rounds_on_course_id", using: :btree
+  add_index "rounds", ["tee_box_id"], name: "index_rounds_on_tee_box_id", using: :btree
 
   create_table "tee_boxes", force: :cascade do |t|
     t.decimal  "rating"
@@ -66,5 +72,7 @@ ActiveRecord::Schema.define(version: 20160328000825) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "tee_boxes", ["course_id"], name: "index_tee_boxes_on_course_id", using: :btree
 
 end

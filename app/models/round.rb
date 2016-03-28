@@ -3,7 +3,7 @@ class Round < ActiveRecord::Base
   belongs_to :tee_box
   has_many :hole_statistics
 
-  accepts_nested_attributes_for :course, :holes, :tee_box
+  accepts_nested_attributes_for :course, :hole_statistics, :tee_box
 
   HOLES = 18
 
