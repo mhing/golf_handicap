@@ -3,7 +3,7 @@
     %h4 Per Round Statistics
 .row
   .col.s12
-    %table
+    %table.striped.centered
       %thead
         %tr
           -@per_round_statistics.each do |stat|
@@ -14,4 +14,10 @@
                 %span=stat.humanize.titleize
       %tbody
         -@per_round_summary.each do |round_stats|
-          %th
+          %tr
+            -@per_round_statistics.each do |stat|
+              %td
+                -if stat.include?('%') || stat.include?('fir') || stat.include?('gir')
+                  %span=number_to_percentage(round_stats[stat.to_sym], precision: 2)
+                -else
+                  %span=round_stats[stat.to_sym]

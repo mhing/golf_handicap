@@ -3,7 +3,7 @@
     %h4 Overall Averaged Statistics
 .row
   .col.s12
-    %table
+    %table.striped.centered
       %thead
         -@statistics.each do |stat|
           %th
@@ -11,3 +11,11 @@
               %span=display_regulation_stat(stat)
             -else
               %span=stat.humanize.titleize
+      %tbody
+        %tr
+          -@statistics.each do |stat|
+            %td
+              -if stat.include?('%') || stat.include?('fir') || stat.include?('gir')
+                %span=number_to_percentage(@overall_summary[stat.to_sym], precision: 1)
+              -else
+                %span=number_with_precision(@overall_summary[stat.to_sym], precision: 0)

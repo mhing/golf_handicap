@@ -7,11 +7,21 @@ class LandingController < ApplicationController
     @statistics = overall_stats
     @per_round_statistics = per_round_stats
     @hole_breakdown_statistics = per_hole_stats
+    @per_round_summary = @rounds.map(&:statistics)
 
-    summary = RoundSummary.new
-    @per_round_summary = summary.per_round_summary(@rounds)
+    @overall_summary = Hash.new(0)
+    @per_round_summary.each do |summary|
+      summary.each do |stat, val|
+        @overall_summary[stat] += val
+      end
+    end
 
-    debugger
+    round_count = @rounds.size
+    @overall_summary.each do |stat, value|
+      @overall_summary[stat] = value.to_f / round_count
+    end
+
+    @overall_summary[:rounds] = round_count
   end
 
   private
@@ -25,7 +35,7 @@ class LandingController < ApplicationController
   end
 
   def shared_stats
-    %w(score fir_% gir_% missed_gir scrambling_% sand_save_%
+    %w(score fir_% gir_% scrambling_% sand_save_%
        putts eagles	birdies	pars bogies 2_bogies_+)
   end
 

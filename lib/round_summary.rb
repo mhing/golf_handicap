@@ -3,7 +3,7 @@ class RoundSummary
     round_stats = []
     rounds.each do |round|
       round_stats << {
-        "length" => round.length
+        
       }
     end
 
